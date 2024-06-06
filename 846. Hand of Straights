@@ -1,0 +1,28 @@
+// 06 June 2024
+// Logic : In this question, 
+//         1. we will create a map from vector to 
+//         store all frequencies of elements. 
+//         2. Iterate over map, and for first existing
+//            element, for the given hand size, check its 
+//            existance while decrementing its freq.
+class Solution {
+public:
+    bool isNStraightHand(vector<int>& hand, int groupSize) {
+        int n = hand.size();
+        if(n % groupSize) return false;
+        map<int, int> mp;
+        for(auto it: hand) mp[it]++;
+
+        for(auto [h, freq] : mp){
+            if(freq == 0) continue;
+            while(freq--){
+                for(int cur = h; cur< h+groupSize; cur++){
+                    if(mp[cur] == 0) return false;
+                    mp[cur]--;
+                }
+            }
+        }
+
+        return true;        
+    }
+};
